@@ -1,0 +1,46 @@
+// C++版 
+// 双重for循环 时间复杂度n^2
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        vector<int> result;
+
+        for(int i= 0; i < n-1; i++){
+            for(int j=i+1;j<n;j++){
+                if(nums[i]+nums[j] == target){
+                    result.push_back(i);
+                    result.push_back(j);
+                return result;
+                }
+            }
+        }
+ // 如果没有找到答案，返回一个空的结果
+        return result;
+    }
+};
+
+// 使用哈希表 将数组中的数作为下标，存在哈希表中
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> numToIndex; // 哈希表，用于存储数字及其下标
+
+        for (int i = 0; i < nums.size(); i++) {
+            int complement = target - nums[i];
+            
+            // 检查哈希表中是否存在与当前数字匹配的数字
+            if (numToIndex.find(complement) != numToIndex.end()) {
+                // 找到匹配，返回两个数字的下标
+                return {numToIndex[complement], i};
+            }
+            
+            // 否则，将当前数字添加到哈希表中
+            numToIndex[nums[i]] = i;
+        }
+        
+        // 如果没有找到答案，返回一个空的结果
+        return {};
+    }
+};
