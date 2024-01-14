@@ -1,0 +1,33 @@
+// C++版
+
+// 链表的求和问题
+
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode* dummyHead = new ListNode(0); // 创建一个虚拟头节点
+        ListNode* current = dummyHead; // 用于遍历链表
+        int carry = 0; // 进位值
+
+        while (l1 || l2 || carry) {
+            int sum = (l1 ? l1->val : 0) + (l2 ? l2->val : 0) + carry;
+            carry = sum / 10; // 计算进位
+            int digit = sum % 10; // 计算当前位的数字
+
+            // 创建新节点，并连接到结果链表
+            current->next = new ListNode(digit);
+            current = current->next;
+
+            if (l1) l1 = l1->next;
+            if (l2) l2 = l2->next;
+        }
+
+        return dummyHead->next; // 返回结果链表，跳过虚拟头节点
+    }
+};
